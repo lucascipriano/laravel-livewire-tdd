@@ -15,5 +15,10 @@ Ideias
 - [ ] Adicionar lib UI como tallstackUI
 
 <br>
+Resumo:
+
+ 
+- Para funcionar com @created="$refresh", e atualizar, é necessário ser filho diretamente. Exemplo: Componente Index irá renderizar a lista, dentro dele terá o botão de Criar.
+- Use Computed para dados vindo do banco de dados.
 
 ![img.png](img.png)
