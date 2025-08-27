@@ -17,7 +17,7 @@ Ideias
 <br>
 Resumo:
 
- 
+- Altere na config do Livewire `'legacy_model_binding' => true`, assim pode receber instancia de models e interagir com elas.`public Todos $todos;` 
 - Para funcionar com @created="$refresh", e atualizar, é necessário ser filho diretamente. Exemplo: Componente Index irá renderizar a lista, dentro dele terá o botão de Criar.
 - Use Computed para dados vindo do banco de dados.
 
