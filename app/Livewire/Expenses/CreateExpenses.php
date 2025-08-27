@@ -3,6 +3,7 @@
 namespace App\Livewire\Expenses;
 
 use App\Models\Expense;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class CreateExpenses extends Component
@@ -12,21 +13,26 @@ class CreateExpenses extends Component
     public string $description = '';
     public float|string $amount = '';
 
-    public function openModal(){
+    public function openModal(): void
+    {
         $this->resetValidation();
         $this->reset(['description', 'amount']);
         $this->showModal = true;
     }
-    public function closeModal()
+    public function closeModal(): void
     {
         $this->showModal = false;
     }
 
-    protected array $rules = [
-      'description' => 'required|string|max:255|min:3',
-        'amount' => 'required|numeric|min:0.01',
-    ];
-    public function save(){
+    public function rules(): array
+    {
+      return [
+            'description' => 'required|string|max:255|min:3',
+            'amount' => 'required|numeric|min:0.01',
+        ];
+    }
+    public function save(): void
+    {
         $this->validate();
         Expense::create([
             'description' => $this->description,
@@ -37,7 +43,7 @@ class CreateExpenses extends Component
         $this->reset(['description', 'amount']);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.expenses.create-expenses');
     }
