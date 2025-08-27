@@ -32,7 +32,7 @@ class CreateExpenses extends Component
             'description' => $this->description,
             'amount' => $this->amount,
         ]);
-        $this->dispatch('expenseCreated');
+        $this->dispatch('created');
         $this->closeModal();
         $this->reset(['description', 'amount']);
     }
