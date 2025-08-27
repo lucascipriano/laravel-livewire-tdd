@@ -11,5 +11,5 @@
 
 Ideias
 - [x] Primeiro TDD com criação do Expenses
-- [ ] Por um componente Livewire index para chamar um botão create para chamar o CreateExpenses, exibir index com a tabela com dispath atualizando.
+- [x] Por um componente Livewire index para chamar um botão create para chamar o CreateExpenses, exibir index com a tabela com dispath atualizando.
 - [ ] Adicionar lib UI como tallstackUI
