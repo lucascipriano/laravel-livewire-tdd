@@ -7,8 +7,20 @@ use Livewire\Component;
 
 class CreateExpenses extends Component
 {
+
+    public bool $showModal = false;
     public string $description = '';
     public float|string $amount = '';
+
+    public function openModal(){
+        $this->resetValidation();
+        $this->reset(['description', 'amount']);
+        $this->showModal = true;
+    }
+    public function closeModal()
+    {
+        $this->showModal = false;
+    }
 
     protected array $rules = [
       'description' => 'required|string|max:255|min:3',
@@ -20,8 +32,9 @@ class CreateExpenses extends Component
             'description' => $this->description,
             'amount' => $this->amount,
         ]);
-        $this->reset(['description', 'amount']);
         $this->dispatch('expenseCreated');
+        $this->closeModal();
+        $this->reset(['description', 'amount']);
     }
 
     public function render()
