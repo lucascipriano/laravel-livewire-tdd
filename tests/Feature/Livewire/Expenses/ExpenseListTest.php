@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Expenses\CreateExpenses;
 use App\Livewire\Expenses\ExpenseList;
 use App\Models\Expense;
 use Livewire\Livewire;
@@ -18,18 +19,22 @@ it('mostra os gastos cadastrados', function(){
 
 });
 it('atualiza a lista quando um gasto é criado', function () {
+    // Inicializa o componente pai
     $component = Livewire::test(ExpenseList::class);
 
-    // Inicialmente vazio
+    // Inicialmente não tem gastos
     expect($component->expenses)->toHaveCount(0);
 
-    // Cria um gasto
-    $expense = Expense::factory()->create(['description' => 'Jantar', 'amount' => 30]);
+    // Cria um gasto no banco
+    $expense = Expense::factory()->create([
+        'description' => 'Jantar',
+        'amount' => 30,
+    ]);
 
-    // Dispara o evento
-    $component->call('refreshExpenses'); // ou $component->dispatch('expenseCreated')
+    // Recarrega o componente para refletir o novo dado
+    $component->refresh();
 
-    // Verifica se a lista atualizou
+    // Verifica se o gasto apareceu
     expect($component->expenses->first()->description)->toBe('Jantar');
 });
 

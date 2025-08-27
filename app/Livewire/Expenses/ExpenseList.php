@@ -11,7 +11,7 @@ class ExpenseList extends Component
 
     #[Computed]
     public function expenses(){
-        return Expense::all();
+        return Expense::query()->orderBy('created_at', 'desc')->get();
     }
 
 
