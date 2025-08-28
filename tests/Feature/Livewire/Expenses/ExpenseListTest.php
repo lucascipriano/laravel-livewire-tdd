@@ -14,8 +14,8 @@ it('mostra os gastos cadastrados', function(){
     Expense::factory()->create(['description' => 'Almoço', 'amount' => 50]);
     Expense::factory()->create(['description' => 'Transporte', 'amount' => 20]);
    Livewire::test(ExpenseList::class)
-       ->assertSet('expenses.0.description', 'Almoço')
-       ->assertSet('expenses.1.description', 'Transporte');
+       ->assertSee('Almoço')
+       ->assertSee('Transporte');
 
 });
 it('atualiza a lista quando um gasto é criado', function () {
@@ -23,7 +23,7 @@ it('atualiza a lista quando um gasto é criado', function () {
     $component = Livewire::test(ExpenseList::class);
 
     // Inicialmente não tem gastos
-    expect($component->expenses)->toHaveCount(0);
+    $component->assertSee('Nenhum gasto cadastrado.');
 
     // Cria um gasto no banco
     $expense = Expense::factory()->create([
@@ -35,14 +35,13 @@ it('atualiza a lista quando um gasto é criado', function () {
     $component->refresh();
 
     // Verifica se o gasto apareceu
-    expect($component->expenses->first()->description)->toBe('Jantar');
+     $component->assertSee('Jantar')
+              ->assertSee('R$ 30,00');
 });
 
 it('ordena os gastos do mais recente ao mais antigo', function () {
     Expense::factory()->create(['description' => 'Antigo', 'created_at' => now()->subDay()]);
     Expense::factory()->create(['description' => 'Novo', 'created_at' => now()]);
 
-    Livewire::test(ExpenseList::class)
-        ->assertSet('expenses.0.description', 'Novo')
-        ->assertSet('expenses.1.description', 'Antigo');
+    Livewire::test(ExpenseList::class)->assertSeeInOrder(['Novo', 'Antigo']);
 });
