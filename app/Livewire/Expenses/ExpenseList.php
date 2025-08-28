@@ -8,12 +8,10 @@ use Livewire\Component;
 
 class ExpenseList extends Component
 {
-    #[Computed]
-    public function expenses(){
-        return Expense::query()->orderBy('created_at', 'desc')->get();
-    }
+    
     public function render()
     {
-        return view('livewire.expenses.expense-list');
+        $expenses = Expense::orderBy('created_at', 'desc')->get();
+        return view('livewire.expenses.expense-list', compact('expenses'));
     }
 }
